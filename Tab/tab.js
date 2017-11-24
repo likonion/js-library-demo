@@ -3,9 +3,9 @@
  */
 
 window.onload = function () {
-    new TabSwitch('Tab1');
-    new TabSwitch('Tab2');
-}
+    var Tab1 = new TabSwitch('Tab1');
+    var Tab2 = new TabSwitch('Tab2');
+};
 
 
 function TabSwitch(id) {
@@ -43,4 +43,4 @@ TabSwitch.prototype.switch = function () {
     this.tabTitle[this.cur].className = 'active';
     this.tabContent[this.cur].style.display = 'block';
 
-}
+};
