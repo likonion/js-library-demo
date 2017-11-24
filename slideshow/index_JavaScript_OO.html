@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -90,8 +90,8 @@
 				</a>
 			</li>
 		</ul>
-	
-	
+
+
 		<ul class="numBox num">
 			<li class="active">1</li>
 			<li>2</li>
@@ -100,20 +100,20 @@
 			<li>5</li>
 			<li>6</li>
 		</ul>
-	
+
 		<div class="preImg left btn">&lt;</div>
 		<div class="nextImg right btn">&gt;</div>
-	
-	
+
+
 	</div>
 	<script>
-		var slide1El = document.getElementById('mainBox');
-		var slide2El = document.getElementById('mainBox2');
-		var slidebox1 = new SlideBox(slide1El, 730);
-		var slidebox2 = new SlideBox(slide2El, 730);
-		
-		function SlideBox(opt, imgWidth) {
-			opt = opt ? opt : {};
+		window.onload = function () {
+			var slidebox1 = new SlideBox('mainBox', 730);
+			var slidebox2 = new SlideBox('mainBox2', 730);
+		}
+
+		function SlideBox(id, imgWidth) {
+			var opt = document.getElementById(id);
 			var _this = this;
 			this.imgWidth = imgWidth;
 			this.slideBox = opt.querySelector('.slideBox');
@@ -121,10 +121,8 @@
 			this.nextImg = opt.querySelector('.nextImg');
 			this.numBox = opt.querySelector('.numBox');
 			this.numBoxLi = this.numBox.querySelectorAll('li');
-			// 定时器
-			this.timer = setInterval(function () {
-				_this.autoPlay()
-			}, 3000);
+			// 自动播放
+			this.autoPlay()
 			// 点击下一张事件
 			this.nextImg.onclick = function () {
 				var index = _this.getIndex() > 4 ? -1 : _this.getIndex();
@@ -150,16 +148,16 @@
 			};
 			// 鼠标移出继续自动播放
 			this.slideBox.onmouseout = function () {
-				_this.timer = setInterval(function () {
-					_this.autoPlay()
-				}, 3000);
-			}
-
+				_this.autoPlay();
+			};
 		}
-		// 自动播放
+		// 自动播放定时器
 		SlideBox.prototype.autoPlay = function () {
-			var index = this.getIndex() > 4 ? -1 : this.getIndex();
-			this.goTo(index + 1)
+			var _this = this;
+			this.timer = setInterval(function () {
+				var index = _this.getIndex() > 4 ? -1 : _this.getIndex();
+				_this.goTo(index + 1)
+			}, 3000)
 		}
 		// 兼容获取style
 		SlideBox.prototype.getStyle = function (obj, attr) {
