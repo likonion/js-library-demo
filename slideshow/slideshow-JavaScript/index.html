@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>原生JavaScript轮播实现</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		.out {
+			position: relative;
+			width: 730px;
+			height: 454px;
+			margin: 50px auto;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.out .img {
+			width: 4380px;
+			position: absolute;
+		}
+
+		.out .img li {
+			float: left;
+			width: 730px;
+			height: 454px;
+		}
+
+		.out .num {
+			position: absolute;
+			bottom: 20px;
+			left: 0;
+			font-size: 0px;
+			text-align: center;
+			width: 100%;
+		}
+
+		.out .num li {
+			width: 20px;
+			height: 20px;
+			background: #666;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 50%;
+			display: inline-block;
+			font-size: 16px;
+			margin: 0 3px;
+			cursor: pointer;
+		}
+
+		.out .num li.active {
+			background: #a00
+		}
+
+		.out .btn {
+			position: absolute;
+			top: 50%;
+			margin-top: -30px;
+			width: 30px;
+			height: 60px;
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			text-align: center;
+			line-height: 60px;
+			font-size: 40px;
+			display: none;
+			cursor: pointer;
+		}
+
+		.out:hover .btn {
+			display: block;
+		}
+
+		.out .left {
+			left: 0
+		}
+
+		.out .right {
+			right: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="out" id="mainBox">
+		<ul class="img" id="slideBox">
+			<li>
+				<a href="#">
+					<img src="images/1.jpg" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="images/2.jpg" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="images/3.jpg" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="images/4.jpg" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="images/5.jpg" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="images/6.jpg" alt="">
+				</a>
+			</li>
+		</ul>
+
+
+		<ul class="num" id="numBox">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+
+		<div class="left btn" id="preImg">&lt;</div>
+		<div class="right btn" id="nextImg">&gt;</div>
+
+
+	</div>
+	<script>
+		var slideBox = document.querySelector('#slideBox'),
+			preImg = document.querySelector('#preImg'),
+			nextImg = document.querySelector('#nextImg'),
+			numBox = document.querySelector('#numBox'),
+			numBoxLi = numBox.querySelectorAll('li'),
+			imgWidth = 730;
+
+		// 自动播放
+		autoPlay();
+		function autoPlay() {
+			timer = setInterval(function () {
+				var index = getIndex() > 4 ? -1 : getIndex();
+				slideTo(index + 1)
+			}, 3000)
+		}
+		// 点击下一屏
+		nextImg.onclick = function () {
+			var index = getIndex() > 4 ? -1 : getIndex();
+			slideTo(index + 1);
+		};
+		// 点击上一屏
+		preImg.onclick = function () {
+			var index = getIndex() == 0 ? 6 : getIndex();
+			slideTo(index - 1);
+		};
+		// 点击序号跳转到相应屏
+		for (let index = 0; index < numBoxLi.length; index++) {
+			numBoxLi[index].onclick = function () {
+				removeActive();
+				this.classList.add('active');
+				slideTo(index);
+			}
+
+		}
+		// 删除高亮
+		function removeActive() {
+			for (let index = 0; index < numBoxLi.length; index++) {
+				numBoxLi[index].classList.remove('active');
+			};
+		};
+		// get styleLeft
+		function getStyleLeft(el) {
+			const win = el.ownerDocument.defaultView; // null 的意思是不返回伪类元素
+			return win.getComputedStyle(el, null).left;
+		};
+		// 获取当前第几屏
+		function getIndex() {
+			var slideBoxPos = parseInt(getStyleLeft(slideBox));
+			return Math.abs(slideBoxPos / imgWidth);
+		};
+		// 滚动到相应屏
+		function slideTo(index) {
+			slideBox.style.left = -index * imgWidth + 'px';
+			activeNum(index);
+		}
+		// 高亮数字编号
+		function activeNum(index) {
+			removeActive();
+			numBoxLi[index].classList.add('active')
+		}
+	</script>
+
+</body>
+
+</html>
