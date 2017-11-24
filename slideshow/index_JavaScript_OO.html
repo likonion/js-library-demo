@@ -106,12 +106,7 @@
 
 
 	</div>
-	<script>
-		window.onload = function () {
-			var slidebox1 = new SlideBox('mainBox', 730);
-			var slidebox2 = new SlideBox('mainBox2', 730);
-		}
-
+	<script>			
 		function SlideBox(id, imgWidth) {
 			var opt = document.getElementById(id);
 			var _this = this;
@@ -183,6 +178,9 @@
 			this.removeActive();
 			this.numBoxLi[index].classList.add('active')
 		}
+
+		var slidebox1 = new SlideBox('mainBox', 730);
+		var slidebox2 = new SlideBox('mainBox2', 730);
 	</script>
 
 </body>
