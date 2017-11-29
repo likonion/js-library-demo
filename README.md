@@ -13,3 +13,6 @@
 
 ## scrollspy(滚动监听)
 jquery实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/scrollspy/jQuery.html)
+
+## Drag(鼠标拖拽)
+JavaScript实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-demo/Drag/drag.html)
