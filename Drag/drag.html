@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标拖拽修改测试</title>
+    <style>
+        .box {
+            color:blue;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            var oDiv3 = document.getElementById('img1');
+            Drag(oDiv);
+            Drag(oDiv2);
+            Drag(oDiv3);
+            function Drag(el) {
+                var oNewDiv = document.createElement('div');
+                var addDiv=false;
+                el.onmousedown = function (ev) {
+                    var oEvent = ev || event;
+                    var oldLeft = el.offsetLeft;
+                    var oldTop = el.offsetTop;
+                    var disX = oEvent.clientX - oldLeft;
+                    var disY = oEvent.clientY - oldTop;
+                    oNewDiv.style.cssText = 'width:' + el.offsetWidth + 'px;' + 'height:' + el.offsetHeight + 'px;' + 'left:' + el.offsetLeft + 'px;' + 'top:' + el.offsetTop + 'px;' + 'position:absolute;border:1px dashed #666;'
+                    document.body.appendChild(oNewDiv);
+                    addDiv=true;
+                    //全局捕获-解决非标准浏览器默认行为-表现为鼠标选中文字后拖拽bug
+                    if (el.setCapture) {
+                        el.setCapture();
+                    }
+                    document.onmousemove =
+                            function (ev) {
+                                var oEvent = ev || event;
+                                var nowDisX = oEvent.clientX - disX;
+                                var nowDisY = oEvent.clientY - disY;
+                                if (nowDisX < 0) {
+                                    nowDisX = 0;
+                                } else if (nowDisX > document.documentElement.clientWidth - el.offsetWidth) {
+
+                                    nowDisX = document.documentElement.clientWidth - el.offsetWidth;
+                                }
+                                if (nowDisY < 0) {
+
+                                    nowDisY = 0;
+                                } else if (nowDisY > document.documentElement.clientHeight - el.offsetHeight) {
+
+                                    nowDisY = document.documentElement.clientHeight - el.offsetHeigh;
+                                }
+                                el.style.left = nowDisX + 'px';
+                                el.style.top = nowDisY + 'px';
+                                el.style.opacity = 0.5;
+
+                            };
+
+                    document.onmouseup = function () {
+                        document.onmousemove = document.onmousedown = null;
+                        el.style.opacity = 1;
+                        if (el.releaseCapture) {
+                            el.releaseCapture();
+                        }
+                        if(addDiv){
+                            document.body.removeChild(oNewDiv);
+                            addDiv=false;
+                        }
+
+                    }
+                    return false;//标准浏览器阻止默认行为
+
+                };
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="div1"></div>
+<div id="div2" style="width:100px; height:100px;position: absolute; background-color: green; left: 500px; top:300px;">
+    654654654
+</div>
+<img src="user-64.png" alt="" id="img1" style="position: absolute;">
+</body>
+</html>
