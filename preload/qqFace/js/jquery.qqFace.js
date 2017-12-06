@@ -34,6 +34,7 @@
 			$('#' + id).css('top', top);
 			$('#' + id).css('left', offset.left);
 			$('#' + id).show();
+			// 图片预加载
 			$.preload(imgs, {
 				all: function () {
 					strFace = '<table border="0" cellspacing="0" cellpadding="0"><tr>';

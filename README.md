@@ -18,6 +18,6 @@ jquery实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/sc
 JavaScript实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-demo/Drag/drag.html)
 
 ## preload(图片预加载)、qqFace(图片预加载加入qq表情)
-原生js  [<预览>](http://likonion.github.io/js-library-demo/preload/javascript.html)
-jquery以及插件封装  [<预览>](http://likonion.github.io/js-library-demo/preload/jquery.html)
-jqueryQQ表情+图片预加载  [<预览>](http://likonion.github.io/js-library-demo/preload/qqFace/index.html)
+1. 原生js  [<预览>](http://likonion.github.io/js-library-demo/preload/javascript.html)
+2. jquery以及插件封装  [<预览>](http://likonion.github.io/js-library-demo/preload/jquery.html)
+3. jqueryQQ表情+图片预加载  [<预览>](http://likonion.github.io/js-library-demo/preload/qqFace/index.html)
