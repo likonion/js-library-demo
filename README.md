@@ -1,6 +1,6 @@
 # js-library-demo
 
-## slideshow
+## slideshow(图片轮播)
 
 1. 原生javascript实现 [<预览>](http://likonion.github.io/js-library-demo/slideshow/index_JavaScript.html)
 2. jQuery实现轮播效果 [<预览>](http://likonion.github.io/js-library-demo/slideshow/index_jQuery.html)
