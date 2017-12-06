@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 650px;
+            margin: 0 auto;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #8d8b8b;
+            background-color: rgb(226, 222, 222);
+            border-radius: 8px;
+        }
+        .btnBox {
+            text-align: center;
+        }
+        .btnBox a {
+            border: 1px solid #cccccc;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 8px;
+        }
+        .btnBox a:hover {
+            background-color: #eeeeee;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #eeeeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .progress {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg" alt="pic">
+    </div>
+    <p class="btnBox">
+        <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+        <a href="javascript:;" class="btn" data-control="next">下一页</a>
+    </p>
+    <div class="loading">
+        <p class="progress">0%</p>
+    </div>
+    <script>
+        var imgs = [
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114092.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114062.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114064-1.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114140.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114066-1.jpg'
+        ];
+        var index = 0,
+                len = imgs.length;
+            var btn = document.querySelector('.btnBox');
+            var img = document.querySelector('img');
+            var loading = document.getElementsByClassName('loading')[0];
+            var progress = document.getElementsByClassName('progress')[0];
+            var count = 0;
+            imgs.forEach(function (src) {
+                var imgObj = new Image();
+                imgObj.onload = function () {
+                    imgObj.onload = null;//去除重复请求
+                    loadImg();
+                }
+                imgObj.onerror = function () {
+                    loadImg();
+                    alert("部分图片加载失败")
+                }
+                imgObj.src = src;
+            })
+            function loadImg() {
+                progress.innerHTML = Math.ceil((count + 1) / len * 100) + '%';
+                if (count >= len - 1) {
+                    loading.style.display = 'none';
+                    document.title = '1/' + len;
+                }
+                count++;
+            }
+            btn.addEventListener('click', function (e) {
+                var target = e.target;
+                if (target.dataset.control === 'prev') {
+                    index = Math.max(0, --index);
+                } else if (target.dataset.control === 'next') {
+                    index = Math.min(len - 1, ++index);
+                }
+                document.title = (index + 1) + '/' + len;
+                img.setAttribute('src', imgs[index]);
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 650px;
+            margin: 0 auto;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #8d8b8b;
+            background-color: rgb(226, 222, 222);
+            border-radius: 8px;
+        }
+        .btnBox {
+            text-align: center;
+        }
+        .btnBox a {
+            border: 1px solid #cccccc;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 8px;
+        }
+        .btnBox a:hover {
+            background-color: #eeeeee;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #eeeeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .progress {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img id="img" src="http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg" alt="pic">
+    </div>
+    <p class="btnBox">
+        <a href="javascript:;" class="btn" data-control="prev">上一页</a>
+        <a href="javascript:;" class="btn" data-control="next">下一页</a>
+    </p>
+    <div class="loading">
+        <p class="progress">0%</p>
+    </div>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/preload.js"></script>
+    <script>
+        var imgs = [
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114092.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114062.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114064-1.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114140.jpg',
+            'http://ovl1kjv88.bkt.clouddn.com/media/100114066-1.jpg'
+        ];
+        var index = 0,
+            len = imgs.length,
+            $progress = $('.progress');
+
+        $.preload(imgs, {
+            each: function (count) {
+                $progress.html(Math.round((count+1) / len * 100) + '%');
+            },
+            all: function () {
+                $('.loading').hide();
+                document.title = '1/' + len;
+            }
+        })
+        $('.btn').on('click', function() {
+            if ('prev' === $(this).data('control')) { // 上一张
+                index = Math.max(0, --index);
+            } else { // 下一张
+                index = Math.min(len-1, ++index);
+            }
+            document.title = (index + 1) + '/' + len;
+            $('#img').attr('src',imgs[index]);
+        })
+
+    </script>
+</body>
+</html>
