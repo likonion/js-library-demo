@@ -12,8 +12,8 @@
 原生js实现Tab功能，演示面向对象编程 [<预览>](http://likonion.github.io/js-library-demo/Tab/tab.html)
 
 ## scrollspy(滚动监听)
-jquery实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/scrollspy/jQuery.html)
-原生js 实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/scrollspy/JavaScript.html)
+1. jquery实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/scrollspy/jQuery.html)
+2. 原生js 实现滚动监听 [<预览>](http://likonion.github.io/js-library-demo/scrollspy/JavaScript.html)
 
 ## Drag(鼠标拖拽)
 JavaScript实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-demo/Drag/drag.html)
