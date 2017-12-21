@@ -13,34 +13,20 @@
             })
 
             //遍历锚点
-            var mds = $(".main").find('.title>a')
-            var arrMd = [];
-            for (var i = 0, len = mds.length; i < len; i++) {
-                arrMd.push($(mds[i]));
-            }
-
+            var aAnchor = $(".main").find('.title>a')
             function update() {
                 var scrollH = $(window).scrollTop();
-
-                for (var i = 0; i < len; i++) {
-                    var mdHeight = arrMd[i].offset().top;
-                    if (mdHeight < scrollH) {
-                        if (i == len-1) {
-                            naVon(len - 1)
-                        }else{
-                            var j = i + 1;
-                            naVon(j);
-                        }
-                    }
-                    if (i == 0 && mdHeight > scrollH) {
-                        naVon(0)
+                for (var i = 0; i < aAnchor.length; i++) {
+                    var mdHeight = aAnchor.eq(i).offset().top;
+                    if (scrollH >= mdHeight - 50) {
+                        highLightNav(i)
                     }
                 }
             }
 
             //高亮导航菜单
-            function naVon(id) {
-                $('.nav li').removeClass('active').eq(id).addClass('active');
+            function highLightNav(index) {
+                $('.nav li').removeClass('active').eq(index).addClass('active');
             }
 
             //绑定滚动事件

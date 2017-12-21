@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            padding: 0 0 1000px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .side {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+
+        .nav {
+
+            width: 200px;
+        }
+
+        .nav li {
+            background-color: cornflowerblue;
+            margin: 2px 0;
+            padding: 5px;
+        }
+
+        .nav li a {
+            display: block;
+        }
+
+        .nav li.active {
+            background-color: green;
+        }
+
+        .main {
+            padding-left: 250px;
+        }
+
+        .main li {
+            border: 1px solid firebrick;
+            margin: 5px;
+            padding: 20px;
+        }
+
+        .main li .title {
+            background-color: red;
+            padding: 10px;
+        }
+
+        .main li .txt {
+            padding: 100px;
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="side">
+        <ul class="nav">
+            <li class="active">
+                <a href="#miao1">菜单一</a>
+            </li>
+            <li>
+                <a href="#miao2">菜单二</a>
+            </li>
+            <li>
+                <a href="#miao3">菜单三</a>
+            </li>
+            <li>
+                <a href="#miao4">菜单四</a>
+            </li>
+            <li>
+                <a href="#miao5">菜单五</a>
+            </li>
+            <li>
+                <a href="#miao6">菜单六</a>
+            </li>
+            <li>
+                <a href="#miao7">菜单七</a>
+            </li>
+        </ul>
+        <a href="" class="home">返回顶部</a>
+    </div>
+    <ul class="main">
+        <li>
+            <div class="title">
+                <a href="" name="miao1">标题一</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao2">标题二</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao3">标题三</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao4">标题四</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao5">标题五</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao6">标题六</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+        <li>
+            <div class="title">
+                <a href="" name="miao7">标题七</a>
+            </div>
+            <div class="txt">
+                <p>内容</p>
+            </div>
+        </li>
+    </ul>
+    <script>
+        //高亮导航菜单
+        function highLightNav(index) {
+            var navLi = document.querySelectorAll('.nav > li');
+            for (let i = 0; i < navLi.length; i++) {
+                if (i === index) {
+                    navLi[i].classList.add('active');
+                } else {
+                    navLi[i].classList.remove('active');
+                }
+            }
+        }
+        // 获得匹配元素相对文档的偏移
+        function getOffset(el) {
+            const box = el.getBoundingClientRect();
+            return {
+                top: box.top + window.pageYOffset - document.documentElement.clientTop,
+                left: box.left + window.pageXOffset - document.documentElement.clientLeft
+            }
+        }
+        //遍历锚点
+        var aAnchor = document.querySelector('.main').querySelectorAll('.title > a');
+        window.onscroll = function () {
+            var scrollH = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+            for (var i = 0; i < aAnchor.length; i++) {
+                var mdHeight = getOffset(aAnchor[i]).top;
+                if (scrollH >= mdHeight - 50) {
+                    highLightNav(i)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

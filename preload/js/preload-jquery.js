@@ -3,9 +3,9 @@
  * 图片预加载
  * @Date: 2017-12-05 16:25:14 
  * @Last Modified by: vincent
- * @Last Modified time: 2017-12-06 08:57:15
+ * @Last Modified time: 2017-12-06 14:18:36
  */
-(function ($) {
+(function ($) { // 用 $ 接收传入的jQuery,不接收亦可
     function PreLoad (imgs, options) {
         this.imgs = (typeof imgs === 'string') ? [imgs] : imgs;
         this.opts = $.extend({}, PreLoad.DEFAULTS, options);
@@ -42,4 +42,4 @@
             new PreLoad(imgs, opts);
         }
     })
-})(jQuery);
+})(jQuery); // 把jQuery传入插件

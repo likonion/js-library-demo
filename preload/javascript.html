@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,15 +46,16 @@
 </head>
 <body>
     <div class="box">
-        <img src="http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg" alt="pic">
+        <img id="img" src="http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg" alt="pic">
     </div>
-    <p class="btnBox">
+    <p class="btnBox" id="btnBox">
         <a href="javascript:;" class="btn" data-control="prev">上一页</a>
         <a href="javascript:;" class="btn" data-control="next">下一页</a>
     </p>
-    <div class="loading">
-        <p class="progress">0%</p>
+    <div class="loading" id="loading">
+        <p class="progress" id="progress">0%</p>
     </div>
+    <script src="js/preload-javascript.js"></script>
     <script>
         var imgs = [
             'http://ovl1kjv88.bkt.clouddn.com/media/100114059.jpg',
@@ -65,42 +66,32 @@
             'http://ovl1kjv88.bkt.clouddn.com/media/100114066-1.jpg'
         ];
         var index = 0,
-                len = imgs.length;
-            var btn = document.querySelector('.btnBox');
-            var img = document.querySelector('img');
-            var loading = document.getElementsByClassName('loading')[0];
-            var progress = document.getElementsByClassName('progress')[0];
-            var count = 0;
-            imgs.forEach(function (src) {
-                var imgObj = new Image();
-                imgObj.onload = function () {
-                    imgObj.onload = null;//去除重复请求
-                    loadImg();
-                }
-                imgObj.onerror = function () {
-                    loadImg();
-                    alert("部分图片加载失败")
-                }
-                imgObj.src = src;
-            })
-            function loadImg() {
-                progress.innerHTML = Math.ceil((count + 1) / len * 100) + '%';
-                if (count >= len - 1) {
+            len = imgs.length,
+            btn = document.getElementById("btnBox"),
+            img = document.getElementById('img'),
+            loading = document.getElementById('loading'),
+            progress = document.getElementById('progress');
+
+        var pre1 = new preload(imgs, {
+                each: function (count) {
+                    progress.innerHTML = Math.round((count + 1) / len * 100) + '%';
+                },
+                all: function () {
                     loading.style.display = 'none';
                     document.title = '1/' + len;
                 }
-                count++;
-            }
-            btn.addEventListener('click', function (e) {
-                var target = e.target;
-                if (target.dataset.control === 'prev') {
-                    index = Math.max(0, --index);
-                } else if (target.dataset.control === 'next') {
-                    index = Math.min(len - 1, ++index);
-                }
-                document.title = (index + 1) + '/' + len;
-                img.setAttribute('src', imgs[index]);
             })
+  
+        btn.addEventListener('click', function (e) {
+            var target = e.target;
+            if (target.dataset.control === 'prev') {
+                index = Math.max(0, --index);
+            } else if (target.dataset.control === 'next') {
+                index = Math.min(len - 1, ++index);
+            }
+            document.title = (index + 1) + '/' + len;
+            img.setAttribute('src', imgs[index]);
+        })
     </script>
 </body>
 </html>
