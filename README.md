@@ -17,8 +17,18 @@
 
 ## Drag(鼠标拖拽)
 JavaScript实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-demo/Drag/drag.html)
+原生javascript+OO实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-demo/Drag/drag_OO.html)
 
 ## preload(图片预加载)、qqFace(图片预加载加入qq表情)
 1. 原生js  [<预览>](http://likonion.github.io/js-library-demo/preload/javascript.html)
 2. jquery以及插件封装  [<预览>](http://likonion.github.io/js-library-demo/preload/jquery.html)
 3. jqueryQQ表情+图片预加载  [<预览>](http://likonion.github.io/js-library-demo/preload/qqFace/index.html)
+
+## 弹跳球(ES6实现)
+
+### 背景
+通过对面向对象基本概念，面向对象的编程思想和构造器，原型实现方法实现一个简单的弹跳球小游戏。
+
+### 介绍
+主要通过ES6，class语法糖，通过canvas绘制背景并控制evil的上下左右，吃掉小球。
+[<预览>](http://likonion.github.io/js-library-demo/bounceBall/index.html)
