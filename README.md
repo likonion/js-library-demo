@@ -26,9 +26,9 @@ JavaScript实现鼠标拖拽 [<预览>](http://likonion.github.io/js-library-dem
 
 ## 弹跳球(ES6实现)
 
-### 背景
+** 背景
 通过对面向对象基本概念，面向对象的编程思想和构造器，原型实现方法实现一个简单的弹跳球小游戏。
 
-### 介绍
+** 介绍
 主要通过ES6，class语法糖，通过canvas绘制背景并控制evil的上下左右，吃掉小球。
 [<预览>](http://likonion.github.io/js-library-demo/bounceBall/index.html)
