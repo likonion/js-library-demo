@@ -2,16 +2,17 @@
  * @Author: vincent 
  * @Date: 2017-12-06 11:29:14 
  * @Last Modified by: vincent
- * @Last Modified time: 2017-12-08 14:16:56
+ * @Last Modified time: 2018-03-28 09:50:39
  */
+;
 (function() {
-    function TabSwitch(id) {
+    function TabSwitch(selector) {
         /*元素获取*/
-        var tabbox = document.getElementById(id);
+        this.elem = typeof selector == 'object' ? selector : document.getElementById(selector);
         //获取选项卡展示部分
-        this.tabContent = tabbox.getElementsByTagName("ul")[1].getElementsByTagName('li');
+        this.tabContent = this.elem.getElementsByTagName("ul")[1].getElementsByTagName('li');
         //获取选项卡控制部分
-        this.tabTitle = tabbox.getElementsByTagName('ul')[0].getElementsByTagName('li');
+        this.tabTitle = this.elem.getElementsByTagName('ul')[0].getElementsByTagName('li');
 
         /*变量设置*/
         //选项卡张数
@@ -41,5 +42,5 @@
         this.tabContent[this.cur].style.display = 'block';
 
     };
-    // window.Tab = TabSwitch;
+    window.Tab = TabSwitch;
 })()
