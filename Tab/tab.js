@@ -2,46 +2,44 @@
  * @Author: vincent 
  * @Date: 2017-12-06 11:29:14 
  * @Last Modified by: vincent
- * @Last Modified time: 2018-03-28 10:33:55
+ * @Last Modified time: 2018-04-23 17:20:39
  */
 (function () {
     function TabSwitch(selector) {
         /*元素获取*/
         this.elem = typeof selector == 'object' ? selector : document.getElementById(selector);
         //获取选项卡展示部分
-        this.tabContent = this.elem.getElementsByTagName("ul")[1].getElementsByTagName('li');
+        this.tabContent = this.elem.querySelectorAll('ul')[1].querySelectorAll('li');
         //获取选项卡控制部分
-        this.tabTitle = this.elem.getElementsByTagName('ul')[0].getElementsByTagName('li');
+        this.tabTitle = this.elem.querySelectorAll('ul')[0].querySelectorAll('li');
 
         /*变量设置*/
         //选项卡张数
         this.count = this.tabTitle.length;
         //当前第几张
         this.cur = 0;
-        this.init();
+        this.addClick();
     }
     TabSwitch.prototype = {
-        init: function () {
+        addClick: function () {
             var _this = this;
             for (var i = 0; i < this.count; i++) {
-                //设置索引
-                this.tabTitle[i].index = i;
-                //给按钮添加事件
-                this.tabTitle[i].onclick = function () {
-                    _this.cur = this.index;
-                    _this.switch(this);
-                };
+                // 闭包实现索引
+                this.tabTitle[i].addEventListener('click', function (i) {
+                    return function () {
+                        _this.cur = i;
+                        _this.control()
+                    }
+                }(i))
             }
         },
-        switch: function (obj) {
-            //去掉所有
+        control: function (index) {
+            // 实现指定显示和点击显示
+            var showIndex = index || this.cur;
             for (var i = 0; i < this.count; i++) {
-                this.tabTitle[i].className = '';
-                this.tabContent[i].style.display = 'none';
+                this.tabTitle[i].className = i == showIndex ? 'active' : '';
+                this.tabContent[i].style.display = i == showIndex ? 'block' : 'none';
             }
-            //显示当前
-            obj.className = 'active';
-            this.tabContent[obj.index].style.display = 'block';
         }
     }
     window.Tab = TabSwitch;
