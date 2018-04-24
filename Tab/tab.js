@@ -2,10 +2,11 @@
  * @Author: vincent 
  * @Date: 2017-12-06 11:29:14 
  * @Last Modified by: vincent
- * @Last Modified time: 2018-04-23 17:20:39
+ * @Last Modified time: 2018-04-24 08:56:46
  */
 (function () {
     function TabSwitch(selector) {
+        if (!selector) return false;
         /*元素获取*/
         this.elem = typeof selector == 'object' ? selector : document.getElementById(selector);
         //获取选项卡展示部分
