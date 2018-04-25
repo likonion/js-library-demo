@@ -186,65 +186,41 @@
 	</div>
 	<script>
 		function SlideBox(ops) {
-			var opt = document.getElementById(ops.id);
-			var _this = this;
+			this.opt = document.getElementById(ops.id);
 			this.autoPlay = ops.autoPlay;
 			this.imgWidth = ops.imgWidth;
 			this.imgHeight = ops.imgHeight;
 			this.imgCount = ops.imgCount;
-			this.slideBox = opt.querySelector('.slideBox');
-			this.preImg = opt.querySelector('.preImg');
-			this.nextImg = opt.querySelector('.nextImg');
-			this.numBox = opt.querySelector('.numBox');
+			this.slideBox = this.opt.querySelector('.slideBox');
+			this.imgs = this.slideBox.querySelectorAll('img');
+			this.preImg = this.opt.querySelector('.preImg');
+			this.nextImg = this.opt.querySelector('.nextImg');
+			this.numBox = this.opt.querySelector('.numBox');
 			this.numBoxLi = this.numBox.querySelectorAll('li');
-			opt.style.width = this.imgWidth + 'px';
-			opt.style.height = this.imgHeight + 'px';
-			this.slideBox.style.width = this.imgWidth * this.imgCount + 'px';
+			
 			// 自动播放
 			if (this.autoPlay) this.autoPlayFun();
-			// 点击下一张事件
-			this.nextImg.onclick = function () {
-				var index = _this.getIndex() > 4 ? -1 : _this.getIndex();
-				_this.goTo(index + 1)
-			};
-			// 点击上一张事件
-			this.preImg.onclick = function () {
-				var index = _this.getIndex() === 0 ? 6 : _this.getIndex();
-				_this.goTo(index - 1)
-			};
-			// 点击序号跳转到相应屏
-			for (let index = 0; index < this.numBoxLi.length; index++) {
-				this.numBoxLi[index].onclick = function () {
-					_this.goTo(index);
-				}
-			};
-			// 鼠标移入停止自动播放
-			this.slideBox.onmouseover = function () {
-				if (this.autoPlay) {
-					_this.clearAutoPlay();
-				}
-			};
-			// 鼠标移出继续自动播放
-			this.slideBox.onmouseout = function () {
-				if (this.autoPlay) {
-					_this.autoPlayFun();
-				}
-			};
+			this.addEvent();
+			this.styleSet();
+			
 		}
 		SlideBox.prototype = {
+			styleSet: function () {
+				this.opt.style.width = this.imgWidth + 'px';
+				this.opt.style.height = this.imgHeight + 'px';
+				this.slideBox.style.width = this.imgWidth * this.imgCount + 'px';
+				
+				for (var i=0;i < this.imgs.length; i++) {
+					this.imgs[i].style.width = this.imgWidth + 'px';;
+					this.imgs[i].style.height = this.imgHeight + 'px';;
+				}
+			},
 			autoPlayFun: function () {
 				var _this = this;
 				this.timer = setInterval(function () {
 					var index = _this.getIndex() > 4 ? -1 : _this.getIndex();
 					_this.goTo(index + 1)
 				}, 3000)
-			},
-			play: function () {
-				var index = this.getIndex() > 4 ? -1 : this.getIndex();
-				this.goTo(index + 1)
-			},
-			clearAutoPlay: function () {
-				clearInterval(this.timer)
 			},
 			// 跳转到第index屏
 			goTo: function (index) {
@@ -261,6 +237,40 @@
 			// 获取当前位置
 			getIndex: function () {
 				return Math.abs(parseInt(this.getStyle(this.slideBox, 'left')) / this.imgWidth);
+			},
+			addEvent: function () {
+				var _this = this;
+				// 点击下一张事件
+				this.nextImg.onclick = function () {
+					var index = _this.getIndex() > 4 ? -1 : _this.getIndex();
+					_this.goTo(index + 1);
+					clearInterval(_this.timer)
+				};
+				// 点击上一张事件
+				this.preImg.onclick = function () {
+					var index = _this.getIndex() === 0 ? 6 : _this.getIndex();
+					_this.goTo(index - 1);
+					clearInterval(_this.timer)
+				};
+				// 点击序号跳转到相应屏
+				for (let index = 0; index < this.numBoxLi.length; index++) {
+					this.numBoxLi[index].onclick = function () {
+						_this.goTo(index);
+						clearInterval(_this.timer)
+					}
+				};
+				// 鼠标移入停止自动播放
+				this.opt.onmouseenter = function () {
+					if (_this.autoPlay) {
+						clearInterval(_this.timer)
+					}
+				};
+				// 鼠标移出继续自动播放
+				this.opt.onmouseleave = function () {
+					if (_this.autoPlay) {
+						_this.autoPlayFun();
+					}
+				};
 			}
 		}
 
@@ -269,7 +279,7 @@
 			imgCount: 6,
 			imgWidth: 730,
 			imgHeight: 454,
-			autoPlay: false
+			autoPlay: true
 		})
 		var slidebox2 = new SlideBox({
 			id: 'mainBox2',
