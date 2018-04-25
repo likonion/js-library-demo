@@ -20,7 +20,10 @@
 			position: relative;
 			overflow: hidden;
 		}
-
+		.slideBox {
+			left:0;
+			transition: left ease .5s;
+		}
 		.out .img {
 			position: absolute;
 		}
@@ -197,20 +200,20 @@
 			this.nextImg = this.opt.querySelector('.nextImg');
 			this.numBox = this.opt.querySelector('.numBox');
 			this.numBoxLi = this.numBox.querySelectorAll('li');
-			
+
 			// 自动播放
 			if (this.autoPlay) this.autoPlayFun();
 			this.addEvent();
 			this.styleSet();
-			
+
 		}
 		SlideBox.prototype = {
 			styleSet: function () {
 				this.opt.style.width = this.imgWidth + 'px';
 				this.opt.style.height = this.imgHeight + 'px';
 				this.slideBox.style.width = this.imgWidth * this.imgCount + 'px';
-				
-				for (var i=0;i < this.imgs.length; i++) {
+
+				for (var i = 0; i < this.imgs.length; i++) {
 					this.imgs[i].style.width = this.imgWidth + 'px';;
 					this.imgs[i].style.height = this.imgHeight + 'px';;
 				}
@@ -225,6 +228,7 @@
 			// 跳转到第index屏
 			goTo: function (index) {
 				this.slideBox.style.left = -index * this.imgWidth + 'px';
+
 				for (let index = 0; index < this.numBoxLi.length; index++) {
 					this.numBoxLi[index].classList.remove('active');
 				};
