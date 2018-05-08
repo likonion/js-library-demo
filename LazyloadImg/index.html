@@ -2,86 +2,86 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>图片懒加载</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片懒加载</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-        li {
-            text-align: center;
-            background: #eee;
-            margin: 0;
-            padding: 80px 0;
-            list-style: none;
-            border: 1px solid #999;
-        }
-    </style>
+    li {
+      text-align: center;
+      background: #eee;
+      margin: 0;
+      padding: 80px 0;
+      list-style: none;
+      border: 1px solid #999;
+    }
+  </style>
 
 </head>
 
 <body>
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-    </ul>
-    <img class="imgLazyLoad" data-src="http://ovl1kjv88.bkt.clouddn.com/media/72988c62208946849c950caca8b1033f_th.jpg" />
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>
-            <img class="imgLazyLoad" data-src="http://ovl1kjv88.bkt.clouddn.com/media/logo.png" />
-        </li>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <img class="imgLazyLoad" data-src="http://ovl1kjv88.bkt.clouddn.com/media/72988c62208946849c950caca8b1033f_th.jpg" />
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>
+      <img class="imgLazyLoad" data-src="http://ovl1kjv88.bkt.clouddn.com/media/logo.png" />
+    </li>
 
-        <li>4</li>
-        <li>5</li>
-    </ul>
-    <script>
-        ;
-        (function () { //立即执行函数
-            let imgList = [],
-                delay, time = 250,
-                offset = 0;
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <script>
+    ;
+    (function () { //立即执行函数
+      let imgList = [],
+        delay, time = 250,
+        offset = 0;
 
-            function _delay() { //函数防抖 
-                clearTimeout(delay);
-                delay = setTimeout(() => {
-                    _loadImg();
-                }, time)
-            };
+      function _delay() { //函数防抖
+        clearTimeout(delay);
+        delay = setTimeout(() => {
+          _loadImg();
+        }, time)
+      };
 
-            function _loadImg() { //执行图片加载 
-                for (let i = 0; i <
-                    imgList.length; i++) {
-                    if (_isShow(imgList[i])) {
-                        imgList[i].src = imgList[i].getAttribute('data-src');
-                        imgList.splice(i, 1);
-                    }
-                }
-            };
+      function _loadImg() { //执行图片加载
+        for (let i = 0; i <
+          imgList.length; i++) {
+          if (_isShow(imgList[i])) {
+            imgList[i].src = imgList[i].getAttribute('data-src');
+            imgList.splice(i, 1);
+          }
+        }
+      };
 
-            function _isShow(el) { //判断img是否出现在可视窗口 
-                let coords = el.getBoundingClientRect();
-                return (coords.top >= 0 && coords.left >= 0 && coords.top) <=
-                    (document.documentElement.clientHeight || window.innerHeight) + parseInt(offset);
-            };
+      function _isShow(el) { //判断img是否出现在可视窗口
+        let coords = el.getBoundingClientRect();
+        return (coords.top >= 0 && coords.left >= 0 && coords.top) <=
+          (document.documentElement.clientHeight || window.innerHeight) + parseInt(offset);
+      };
 
-            function imgLoad(selector) { //获取所有需要实现懒加载图片对象引用并设置window监听事件scroll 
-                _selector = selector || '.imgLazyLoad';
-                let nodes = document.querySelectorAll(selector);
-                imgList = Array.apply(null, nodes); // NodeList 转 Array
-                window.addEventListener('scroll', _delay, false)
-            };
-            imgLoad('.imgLazyLoad')
-        })()
-    </script>
+      function imgLoad(selector) { //获取所有需要实现懒加载图片对象引用并设置window监听事件scroll
+        _selector = selector || '.imgLazyLoad';
+        let nodes = document.querySelectorAll(selector);
+        imgList = Array.apply(null, nodes); // NodeList 转 Array
+        window.addEventListener('scroll', _delay, false)
+      };
+      imgLoad('.imgLazyLoad')
+    })()
+  </script>
 </body>
 
 </html>

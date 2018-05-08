@@ -2,77 +2,77 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>tab</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="normalize.css">
-    <script type="text/javascript" src="tab.js"></script>
+  <meta charset="UTF-8">
+  <title>tab</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="normalize.css">
+  <script type="text/javascript" src="tab.js"></script>
 </head>
 
 <body>
-    <h2>Tab1</h2>
-    <div id="Tab1">
-        <ul class="tabTitle f-cb">
-            <li class="active">tab1</li>
-            <li>tab2</li>
-            <li>tab3</li>
-        </ul>
-        <ul class="tabContent f-cb">
-            <li>
-                <h1>tab1 title</h1>
-                <p>tab1 content</p>
-            </li>
-            <li style="display: none;">
-                <h1>tab2 title</h1>
-                <p>tab2 content</p>
-            </li>
-            <li style="display: none;">
-                <h1>tab3 title</h1>
-                <p>tab3 content</p>
-            </li>
-        </ul>
-    </div>
-    <h2>Tab2</h2>
-    <div id="Tab2">
-        <ul class="tabTitle f-cb">
-            <li class="active">tab1</li>
-            <li>tab2</li>
-            <li>tab3</li>
-        </ul>
-        <ul class="tabContent f-cb">
-            <li>
-                <h1>tab1 title</h1>
-                <p>tab1 content</p>
-            </li>
-            <li style="display: none;">
-                <h1>tab2 title</h1>
-                <p>tab2 content</p>
-            </li>
-            <li style="display: none;">
-                <h1>tab3 title</h1>
-                <p>tab3 content</p>
-            </li>
-        </ul>
-    </div>
-    <select>
-        <option value="">tab1</option>
-        <option value="">tab2</option>
-        <option value="">tab3</option>
-    </select>
-    <button>显示</button>
-    <script>
-        window.onload = function () {
-            var Tab1 = new Tab('Tab1');
-            var Tab2 = new Tab('Tab2');
-            var select = document.querySelector('select');
-            var button = document.querySelector('button');
-            button.onclick= function() {
-                var selectIndex = select.selectedIndex;
-                Tab1.control(selectIndex);
-                Tab2.control(selectIndex);
-            }
-        };
-    </script>
+  <h2>Tab1</h2>
+  <div id="Tab1">
+    <ul class="tabTitle f-cb">
+      <li class="active">tab1</li>
+      <li>tab2</li>
+      <li>tab3</li>
+    </ul>
+    <ul class="tabContent f-cb">
+      <li>
+        <h1>tab1 title</h1>
+        <p>tab1 content</p>
+      </li>
+      <li style="display: none;">
+        <h1>tab2 title</h1>
+        <p>tab2 content</p>
+      </li>
+      <li style="display: none;">
+        <h1>tab3 title</h1>
+        <p>tab3 content</p>
+      </li>
+    </ul>
+  </div>
+  <h2>Tab2</h2>
+  <div id="Tab2">
+    <ul class="tabTitle f-cb">
+      <li class="active">tab1</li>
+      <li>tab2</li>
+      <li>tab3</li>
+    </ul>
+    <ul class="tabContent f-cb">
+      <li>
+        <h1>tab1 title</h1>
+        <p>tab1 content</p>
+      </li>
+      <li style="display: none;">
+        <h1>tab2 title</h1>
+        <p>tab2 content</p>
+      </li>
+      <li style="display: none;">
+        <h1>tab3 title</h1>
+        <p>tab3 content</p>
+      </li>
+    </ul>
+  </div>
+  <select>
+    <option value="">tab1</option>
+    <option value="">tab2</option>
+    <option value="">tab3</option>
+  </select>
+  <button>显示</button>
+  <script>
+    window.onload = function () {
+      var Tab1 = Tab('Tab1'),
+        Tab2 = Tab('Tab2');
+      var select = document.querySelector('select');
+      var button = document.querySelector('button');
+      button.onclick = function () {
+        var selectIndex = select.selectedIndex;
+        Tab1.control(selectIndex);
+        Tab2.control(selectIndex);
+      }
+    };
+  </script>
 </body>
 
 </html>
